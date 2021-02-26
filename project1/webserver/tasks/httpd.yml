@@ -1,0 +1,17 @@
+- name: Install the HTTPD package
+  package:
+     name: httpd
+     state: present
+
+- name: Update the httpd configuration
+  template:
+    src: ports.conf.j2
+    dest: /etc/httpd/ports.conf
+  notify:
+  - Restart httpd service
+
+- name: Copy web content
+  copy:
+    src: index.html
+    dest: /var/www/html/
+
